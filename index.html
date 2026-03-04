@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKILL - Ultimate Platform</title>
+    <style>
+        :root { --primary: #0078D4; --success: #28a745; --danger: #dc3545; --dark: #333; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: var(--dark); overflow-x: hidden; }
+        
+        /* Navigation & Header */
+        header { background: var(--primary); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .container { padding: 20px; max-width: 600px; margin: auto; transition: 0.3s; }
+        
+        /* Hidden Pages */
+        .page { display: none; }
+        .active-page { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cards & Buttons */
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .btn-go { background: var(--success); color: white; }
+        .btn-ai { background: var(--primary); color: white; }
+        .btn-stop { background: var(--danger); color: white; }
+        .btn-back { background: transparent; color: var(--primary); border: 2px solid var(--primary); margin-top: 20px; }
+        
+        /* Stats */
+        .stat-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
+        .price { color: var(--success); font-size: 24px; font-weight: bold; }
+        footer { text-align: center; padding: 20px; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 style="margin:0; font-size: 24px;">SKILL PLATFORM</h1>
+</header>
+
+<div class="container">
+    
+    <div id="home" class="page active-page">
+        <div class="card">
+            <h2 style="color: var(--primary);">Namaste, Pinakin ji</h2>
+            <p>Aapka "Zero Commission" model taiyar hai. i-Hub Ahmedabad ke liye ultimate prototype.</p>
+            <button class="btn btn-go" onclick="navigate('dashboard')">Launch Dashboard</button>
+        </div>
+        <div class="card" style="text-align: left;">
+            <h3>Key Features:</h3>
+            <p>✅ Aadhaar Verified Security</p>
+            <p>✅ AI Voice Guidance (Gujarati)</p>
+            <p>✅ 100% Earnings to Worker</p>
+        </div>
+    </div>
+
+    <div id="dashboard" class="page">
+        <div class="card">
+            <div class="stat-box">
+                <span>Total Earnings:</span>
+                <span class="price">₹1,250.00</span>
+            </div>
+            <div class="stat-box">
+                <span>Platform Fee:</span>
+                <span style="color: blue; font-weight: bold;">₹0.00</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>AI Coach: Solar Maintenance</h3>
+            <p>Press the button below to start the guide.</p>
+            <button class="btn btn-ai" onclick="speakAI()">🔊 Start Voice Guide</button>
+            <button class="btn btn-stop" onclick="stopAI()">🛑 Stop Speaking</button>
+        </div>
+
+        <button class="btn btn-back" onclick="navigate('home')">← Back to Home</button>
+    </div>
+
+</div>
+
+<footer>
+    Founder: Pinakin Ravindrabhai Anand | Secure Control
+</footer>
+
+<script>
+    const synth = window.speechSynthesis;
+
+    // Smooth Page Navigation
+    function navigate(pageId) {
+        stopAI(); // Jab bhi page badle, awaaz band ho jaye
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(pageId).classList.add('active-page');
+        window.scrollTo(0,0);
+    }
+
+    // Fixed AI Voice (Browser Fix)
+    function speakAI() {
+        stopAI(); // Reset current speech
+        
+        // Browser ko batane ke liye ki user ne click kiya hai
+        const text = "Namaste Pinakin ji. Tamaru SKILL platform par swagat che. Kaam sharu karva mate taiyar cho? Aa AI guide tamne badhi madad karshe.";
+        const utter = new SpeechSynthesisUtterance(text);
+        
+        utter.lang = 'gu-IN'; // Gujarati
+        utter.rate = 0.9;      // Thoda dheere taaki samajh aaye
+        utter.pitch = 1.0;
+
+        // Force Speak
+        synth.speak(utter);
+    }
+
+    function stopAI() {
+        if (synth.speaking || synth.pending) {
+            synth.cancel();
+        }
+    }
+</script>
+
+</body>
+</html>
