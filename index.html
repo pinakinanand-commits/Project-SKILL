@@ -3,115 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKILL - Ultimate Platform</title>
+    <title>SKILL - Secure Platform</title>
     <style>
         :root { --primary: #0078D4; --success: #28a745; --danger: #dc3545; --dark: #333; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: var(--dark); overflow-x: hidden; }
-        
-        /* Navigation & Header */
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; color: var(--dark); }
         header { background: var(--primary); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        .container { padding: 20px; max-width: 600px; margin: auto; transition: 0.3s; }
-        
-        /* Hidden Pages */
+        .container { padding: 20px; max-width: 500px; margin: auto; }
         .page { display: none; }
-        .active-page { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Cards & Buttons */
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 20px; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .active-page { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 20px; text-align: center; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .btn-go { background: var(--success); color: white; }
         .btn-ai { background: var(--primary); color: white; }
-        .btn-stop { background: var(--danger); color: white; }
-        .btn-back { background: transparent; color: var(--primary); border: 2px solid var(--primary); margin-top: 20px; }
-        
-        /* Stats */
-        .stat-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
-        .price { color: var(--success); font-size: 24px; font-weight: bold; }
+        .input-box { width: 90%; padding: 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 10px; margin-bottom: 15px; text-align: center; letter-spacing: 2px; }
+        .stat-box { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
         footer { text-align: center; padding: 20px; font-size: 12px; color: #888; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-size: 24px;">SKILL PLATFORM</h1>
+    <h1 style="margin:0;">SKILL PLATFORM</h1>
 </header>
 
 <div class="container">
     
-    <div id="home" class="page active-page">
+    <div id="login" class="page active-page">
         <div class="card">
-            <h2 style="color: var(--primary);">Namaste, Pinakin ji</h2>
-            <p>Aapka "Zero Commission" model taiyar hai. i-Hub Ahmedabad ke liye ultimate prototype.</p>
-            <button class="btn btn-go" onclick="navigate('dashboard')">Launch Dashboard</button>
-        </div>
-        <div class="card" style="text-align: left;">
-            <h3>Key Features:</h3>
-            <p>✅ Aadhaar Verified Security</p>
-            <p>✅ AI Voice Guidance (Gujarati)</p>
-            <p>✅ 100% Earnings to Worker</p>
+            <h2 style="color: var(--primary);">Worker Login</h2>
+            <p>આગળ વધવા માટે તમારો 12 અંકનો આધાર નંબર લખો</p>
+            <input type="text" id="aadhaarInput" class="input-box" placeholder="XXXX XXXX XXXX" maxlength="12">
+            <button class="btn btn-go" onclick="verifyAadhaar()">Verify & Entry</button>
+            <p id="msg" style="margin-top:10px; font-weight:bold;"></p>
         </div>
     </div>
 
     <div id="dashboard" class="page">
         <div class="card">
-            <div class="stat-box">
-                <span>Total Earnings:</span>
-                <span class="price">₹1,250.00</span>
-            </div>
-            <div class="stat-box">
-                <span>Platform Fee:</span>
-                <span style="color: blue; font-weight: bold;">₹0.00</span>
-            </div>
+            <h3>Namaste, Pinakin ji!</h3>
+            <div class="stat-box"><span>Earnings:</span><span style="color:green; font-weight:bold;">₹1,250.00</span></div>
+            <div class="stat-box"><span>Commision:</span><span style="color:blue; font-weight:bold;">₹0.00</span></div>
+            <hr>
+            <h4>AI Coach: Solar Expert</h4>
+            <button class="btn btn-ai" onclick="speakAI()">🔊 Start Gujarati Guide</button>
+            <button class="btn btn-back" style="background:#eee; border:none; margin-top:20px;" onclick="location.reload()">Logout</button>
         </div>
-
-        <div class="card">
-            <h3>AI Coach: Solar Maintenance</h3>
-            <p>Press the button below to start the guide.</p>
-            <button class="btn btn-ai" onclick="speakAI()">🔊 Start Voice Guide</button>
-            <button class="btn btn-stop" onclick="stopAI()">🛑 Stop Speaking</button>
-        </div>
-
-        <button class="btn btn-back" onclick="navigate('home')">← Back to Home</button>
     </div>
 
 </div>
 
-<footer>
-    Founder: Pinakin Ravindrabhai Anand | Secure Control
-</footer>
+<footer>Founder: Pinakin Ravindrabhai Anand | i-Hub Prototype</footer>
 
 <script>
     const synth = window.speechSynthesis;
 
-    // Smooth Page Navigation
-    function navigate(pageId) {
-        stopAI(); // Jab bhi page badle, awaaz band ho jaye
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-        document.getElementById(pageId).classList.add('active-page');
-        window.scrollTo(0,0);
-    }
-
-    // Fixed AI Voice (Browser Fix)
-    function speakAI() {
-        stopAI(); // Reset current speech
+    function verifyAadhaar() {
+        const val = document.getElementById('aadhaarInput').value;
+        const msg = document.getElementById('msg');
         
-        // Browser ko batane ke liye ki user ne click kiya hai
-        const text = "Namaste Pinakin ji. Tamaru SKILL platform par swagat che. Kaam sharu karva mate taiyar cho? Aa AI guide tamne badhi madad karshe.";
-        const utter = new SpeechSynthesisUtterance(text);
-        
-        utter.lang = 'gu-IN'; // Gujarati
-        utter.rate = 0.9;      // Thoda dheere taaki samajh aaye
-        utter.pitch = 1.0;
-
-        // Force Speak
-        synth.speak(utter);
-    }
-
-    function stopAI() {
-        if (synth.speaking || synth.pending) {
-            synth.cancel();
+        if(val.length === 12) {
+            msg.style.color = "green";
+            msg.innerText = "Verifying Aadhaar...";
+            setTimeout(() => {
+                document.getElementById('login').classList.remove('active-page');
+                document.getElementById('dashboard').classList.add('active-page');
+                speakAI(); // Login hote hi swagat karega
+            }, 1500);
+        } else {
+            msg.style.color = "red";
+            msg.innerText = "Please enter valid 12 digits!";
         }
+    }
+
+    function speakAI() {
+        synth.cancel();
+        const text = "Namaste Pinakin ji. Tamaru SKILL platform par swagat che. Aa system secure che ane tamari badhi kamani tamne malse.";
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'gu-IN';
+        utter.rate = 0.9;
+        synth.speak(utter);
     }
 </script>
 
